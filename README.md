@@ -25,7 +25,7 @@ An interactive web application built with **Python and Flask** that brings 11 ma
 | 02 | Simple Linear Regression | Simple Linear Regression | `Placement.csv` |
 | 03 | Multiple Linear Regression | Multiple Linear Regression | `Advertising.csv` |
 | 04 | Binary Logistic Regression | Binary Logistic Regression | `Placement_Y_N.csv` |
-| 05 | Multiclass Logistic Regression | Multiclass Logistic Regression | Iris dataset |
+| 05 | Multiclass Logistic Regression | Multiclass Logistic Regression | `Iris dataset` |
 | 06 | Decision Tree Classification | Decision Tree | `heart_data.csv` |
 | 07 | K-Nearest Neighbors (KNN) Classification | KNN | `diabetes_dataset.csv` |
 | 08 | Naive Bayes Classification | Naive Bayes text classification | `college_messages.csv` |
@@ -77,7 +77,7 @@ Experiment 01 performs dataset exploration and does not require prediction input
 ## Project Structure
 
 ```text
-Integrated-ML-Dashboard/
+ML_Dashboard/
 ├── app.py
 ├── requirements.txt
 ├── RUN_DASHBOARD.bat
@@ -116,7 +116,6 @@ Keep the terminal open while using the dashboard. Press `Ctrl + C` to stop the F
 
 The `models/` folder contains selected model and vectorizer files collected from the original experiment repository. They are included as reference artifacts. The current dashboard trains models from the CSV datasets when experiments are run; it does not automatically load these saved files. Verify dataset, feature order, preprocessing, and library versions before using a saved artifact.
 
-**Security note:** Only load `.pkl` or `.joblib` files from trusted sources.
 
 ## Evaluation Notes
 
@@ -124,14 +123,12 @@ The `models/` folder contains selected model and vectorizer files collected from
 - Predictions depend on the values entered by the user.
 - For Decision Tree, KNN, and Random Forest, hidden features use dataset medians, so predictions are conditional on those default values.
 - Experiment 01 is dataset analysis, not a prediction experiment.
-
-## Future Enhancements
-
-- Save prediction history between sessions.
-- Export prediction reports.
-- Compare compatible algorithms using common datasets and evaluation metrics.
-- Add validated loading of saved model artifacts.
+  
 
 ## Author
 
-Developed as a college mini project.
+Abhijeet Pathade
+
+<br>
+
+Happy Learning!
