@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Integrated ML Algorithm Dashboard</title>
+<style>
+:root{--navy:#183153;--blue:#2b5c91;--bg:#f4f7fb;--card:#fff;--text:#1e293b;--muted:#64748b;--line:#dbe4ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Segoe UI,Arial,sans-serif;color:var(--text)}
+header{background:linear-gradient(120deg,#17365d,#2e628f);color:white;padding:30px 20px}
+header .wrap,main{max-width:1120px;margin:auto}h1{margin:0 0 8px;font-size:clamp(24px,4vw,34px)}header p{margin:0;color:#e2eaf5}
+main{padding:24px 18px 48px}.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:20px;box-shadow:0 5px 18px #1831530a}
+h2{font-size:20px;margin:0 0 16px}.formrow{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+label{font-weight:600;font-size:14px;display:block;margin-bottom:8px}select,button{font:inherit;border-radius:8px;padding:12px 14px}
+select{min-width:min(100%,350px);border:1px solid #b8c7d9;background:white;color:var(--text)}
+button{border:0;background:var(--blue);color:white;font-weight:650;cursor:pointer}button:hover{background:var(--navy)}
+.hint{font-size:13px;color:var(--muted);line-height:1.5;margin-top:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:15px 0}
+.metric{background:#f7faff;border:1px solid var(--line);border-radius:10px;padding:14px}.metric span{display:block;color:var(--muted);font-size:13px}.metric strong{display:block;font-size:23px;margin-top:7px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:18px;align-items:start}
+.data-table{border-collapse:collapse;width:100%;font-size:13px;display:block;overflow-x:auto}.data-table th,.data-table td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.data-table th{background:#eef4fa}
+img.plot{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px}
+.alert{padding:13px 15px;border-radius:9px;background:#eaf5ee;color:#205c37;margin-top:16px}.error{background:#fff0f0;color:#9b2525}
+.badge{display:inline-block;padding:5px 9px;background:#e8f0fa;color:#214f7c;border-radius:999px;font-size:12px;font-weight:700}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Integrated Machine Learning Dashboard</h1><p>One place to explore the algorithms from ML Experiments 01–11.</p></div></header>
+<main>
+<section class="panel">
+<h2>Select an experiment</h2>
+<form method="post">
+<div class="formrow"><div><label for="algorithm">Machine learning algorithm</label>
+<select name="algorithm" id="algorithm">
+{% for key, name in algorithms.items() %}<option value="{{ key }}" {% if selected == key %}selected{% endif %}>{{ name }}</option>{% endfor %}
+</select></div><button type="submit">Run Algorithm</button></div>
+<p class="hint">This ready-to-run version uses local demo data (built-in or generated) so the dashboard works without downloading datasets. Results demonstrate the workflow; they are not the same as results from every original lab dataset.</p>
+</form>
+{% if error %}<div class="alert error"><strong>Could not run:</strong> {{ error }}</div>{% endif %}
+</section>
+{% if result %}
+<section class="panel">
+<span class="badge">{{ result.task|capitalize }}</span>
+<h2 style="margin-top:12px">{{ result.title }}</h2>
+<p>{{ result.message }}</p>
+<div class="cards">
+<div class="metric"><span>Rows</span><strong>{{ result.rows }}</strong></div>
+<div class="metric"><span>Features / columns</span><strong>{{ result.columns }}</strong></div>
+</div>
+<h3>Dataset preview</h3>{{ result.preview|safe }}
+{% if result.metrics %}
+<h3 style="margin-top:24px">Performance metrics</h3>
+<div class="cards">{% for name, value in result.metrics %}<div class="metric"><span>{{ name }}</span><strong>{{ value }}</strong></div>{% endfor %}</div>
+{% endif %}
+<div class="grid">
+{% if result.plot %}<div><h3>Visualization</h3><img class="plot" src="data:image/png;base64,{{ result.plot }}" alt="Model visualization"></div>{% endif %}
+{% if result.summary %}<div><h3>Descriptive statistics</h3>{{ result.summary|safe }}</div>{% endif %}
+{% if result.predictions %}<div><h3>Sample predictions</h3>{{ result.predictions|safe }}</div>{% endif %}
+</div>
+</section>
+{% endif %}
+</main><footer>Integrated ML Dashboard · Flask · scikit-learn</footer>
+</body></html>
