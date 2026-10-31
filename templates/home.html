@@ -1,43 +1,303 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Integrated ML Dashboard</title><style>
-:root{--navy:#17365d;--blue:#35689a;--bg:#f3f6fb;--ink:#202d40;--muted:#66758b;--line:#dce5ef}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Segoe UI,Arial,sans-serif;color:var(--ink)}
-header{background:linear-gradient(120deg,#17365d,#3d6792);color:white;padding:28px 22px}header .wrap,main{max-width:1150px;margin:auto}
-.profile{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}.student{display:grid;grid-template-columns:repeat(2,minmax(150px,1fr));gap:10px 20px;background:#ffffff18;border:1px solid #ffffff35;border-radius:12px;padding:14px 16px;min-width:320px}.student span{display:block;color:#d7e5f5;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}.student strong{font-size:13px;color:white;overflow-wrap:anywhere}
-h1{margin:0 0 8px;font-size:clamp(26px,4vw,36px)}header p{margin:0;color:#e5edf7}.navlinks{margin-top:12px!important}.navlinks a{color:white;text-decoration:none;border:1px solid #ffffff70;border-radius:7px;padding:7px 11px;font-size:13px}.navlinks a:hover{background:#ffffff20}
-main{padding:28px 18px 50px}.intro{margin-bottom:24px}.intro h2{margin:0 0 7px}.intro p{color:var(--muted);margin:0}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:17px}
-.card{background:white;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 5px 18px #17365d0a;display:flex;flex-direction:column;min-height:205px}
-.top{display:flex;align-items:center;gap:12px;margin-bottom:13px}.num{width:43px;height:43px;border-radius:11px;background:#eaf1fa;color:#234f7b;display:grid;place-items:center;font-weight:800}
-.tag{font-size:11px;font-weight:700;color:#315e8c;background:#eef4fb;border-radius:999px;padding:5px 9px;margin-left:auto}
-h3{font-size:17px;margin:0 0 9px}.desc{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 18px;flex:1}
-a.open{display:block;text-align:center;text-decoration:none;background:var(--blue);color:white;border-radius:8px;padding:11px 14px;font-weight:650}a.open:hover{background:var(--navy)}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+<!doctype html>
+<html lang="en">
 
-.overview{margin-bottom:30px}
-.overview-heading h2{margin:0 0 6px;font-size:22px}
-.overview-heading p{margin:0;color:var(--muted);font-size:14px}
-.overview-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:17px 0}
-.stat-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px 18px;box-shadow:0 4px 15px #17365d08}
-.stat-card span{display:block;color:var(--muted);font-size:13px;font-weight:600}
-.stat-card strong{display:block;color:var(--navy);font-size:30px;line-height:1.25;margin:7px 0 3px}
-.stat-card small{color:var(--muted);font-size:12px}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Integrated ML Dashboard</title>
+  <style>
+    :root {
+      --navy: #17365d;
+      --blue: #35689a;
+      --bg: #f3f6fb;
+      --ink: #202d40;
+      --muted: #66758b;
+      --line: #dce5ef
+    }
 
-</style></head><body><header><div class="wrap"><div class="profile"><div><h1>Integrated Machine Learning Dashboard</h1><p>Choose an experiment, enter input values, and view its prediction and performance.</p><p class="navlinks"><a href="{{url_for('about')}}">About this Project</a></p></div><div class="student"><div><span>Name</span><strong>Abhijeet Pathade</strong></div><div><span>Email</span><strong>abhijeetpathade19@gmail.com</strong></div><div><span>Batch</span><strong>TA1</strong></div><div><span>Roll No.</span><strong>16</strong></div></div></div></div></header>
-<main>
-<section class="overview">
-  <div class="overview-heading">
-    <div>
-      <h2>Dashboard Overview</h2>
-      <p>Quick summary of your machine learning practicals and recent activity.</p>
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: Segoe UI, Arial, sans-serif;
+      color: var(--ink)
+    }
+
+    header {
+      background: linear-gradient(120deg, #17365d, #3d6792);
+      color: white;
+      padding: 28px 22px
+    }
+
+    header .wrap,
+    main {
+      max-width: 1150px;
+      margin: auto
+    }
+
+    .profile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap
+    }
+
+    .student {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(150px, 1fr));
+      gap: 10px 20px;
+      background: #ffffff18;
+      border: 1px solid #ffffff35;
+      border-radius: 12px;
+      padding: 14px 16px;
+      min-width: 320px
+    }
+
+    .student span {
+      display: block;
+      color: #d7e5f5;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 3px
+    }
+
+    .student strong {
+      font-size: 13px;
+      color: white;
+      overflow-wrap: anywhere
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 4vw, 36px)
+    }
+
+    header p {
+      margin: 0;
+      color: #e5edf7
+    }
+
+    .navlinks {
+      margin-top: 12px !important
+    }
+
+    .navlinks a {
+      color: white;
+      text-decoration: none;
+      border: 1px solid #ffffff70;
+      border-radius: 7px;
+      padding: 7px 11px;
+      font-size: 13px
+    }
+
+    .navlinks a:hover {
+      background: #ffffff20
+    }
+
+    main {
+      padding: 28px 18px 50px
+    }
+
+    .intro {
+      margin-bottom: 24px
+    }
+
+    .intro h2 {
+      margin: 0 0 7px
+    }
+
+    .intro p {
+      color: var(--muted);
+      margin: 0
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 17px
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 5px 18px #17365d0a;
+      display: flex;
+      flex-direction: column;
+      min-height: 205px
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 13px
+    }
+
+    .num {
+      width: 43px;
+      height: 43px;
+      border-radius: 11px;
+      background: #eaf1fa;
+      color: #234f7b;
+      display: grid;
+      place-items: center;
+      font-weight: 800
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #315e8c;
+      background: #eef4fb;
+      border-radius: 999px;
+      padding: 5px 9px;
+      margin-left: auto
+    }
+
+    h3 {
+      font-size: 17px;
+      margin: 0 0 9px
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 18px;
+      flex: 1
+    }
+
+    a.open {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      background: var(--blue);
+      color: white;
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-weight: 650
+    }
+
+    a.open:hover {
+      background: var(--navy)
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 20px
+    }
+
+    .overview {
+      margin-bottom: 30px
+    }
+
+    .overview-heading h2 {
+      margin: 0 0 6px;
+      font-size: 22px
+    }
+
+    .overview-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .overview-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin: 17px 0
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 17px 18px;
+      box-shadow: 0 4px 15px #17365d08
+    }
+
+    .stat-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600
+    }
+
+    .stat-card strong {
+      display: block;
+      color: var(--navy);
+      font-size: 30px;
+      line-height: 1.25;
+      margin: 7px 0 3px
+    }
+
+    .stat-card small {
+      color: var(--muted);
+      font-size: 12px
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="profile">
+        <div>
+          <h1>Integrated Machine Learning Dashboard</h1>
+          <p>Choose an experiment, enter input values, and view its prediction and performance.</p>
+          <p class="navlinks"><a href="{{url_for('about')}}">About this Project</a></p>
+        </div>
+        <div class="student">
+          <div><span>Name</span><strong>Abhijeet Pathade</strong></div>
+          <div><span>Email</span><strong>abhijeetpathade19@gmail.com</strong></div>
+          <div><span>Batch</span><strong>TA1</strong></div>
+          <div><span>Roll No.</span><strong>16</strong></div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="overview-stats">
-    <div class="stat-card"><span>Total Experiments</span><strong>{{total_experiments}}</strong><small>Available practicals</small></div>
-    <div class="stat-card"><span>Regression</span><strong>{{regression_count}}</strong><small>Predict numerical values</small></div>
-    <div class="stat-card"><span>Classification</span><strong>{{classification_count}}</strong><small>Predict categories or classes</small></div>
-    <div class="stat-card"><span>Other Experiments</span><strong>{{other_count}}</strong><small>Data and text analysis</small></div>
-  </div>
-</section>
-<div class="intro"><h2>All Experiments (01–11)</h2><p>Select any experiment card to open its own input form and run the model.</p></div>
-<div class="cards">{% for e in experiments %}<article class="card"><div class="top"><div class="num">{{e.no}}</div><span class="tag">{{e.category}}</span></div><h3>{{e.name}}</h3><p class="desc">{{e.desc}}</p><a class="open" href="{{url_for('experiment',key=e.id)}}">Open Experiment →</a></article>{% endfor %}</div></main><footer>Integrated ML Dashboard · Flask · scikit-learn</footer></body></html>
+  </header>
+  <main>
+    <section class="overview">
+      <div class="overview-heading">
+        <div>
+          <h2>Dashboard Overview</h2>
+          <p>Quick summary of your machine learning practicals and recent activity.</p>
+        </div>
+      </div>
+      <div class="overview-stats">
+        <div class="stat-card"><span>Total Experiments</span><strong>{{total_experiments}}</strong><small>Available
+            practicals</small></div>
+        <div class="stat-card"><span>Regression</span><strong>{{regression_count}}</strong><small>Predict numerical
+            values</small></div>
+        <div class="stat-card"><span>Classification</span><strong>{{classification_count}}</strong><small>Predict
+            categories or classes</small></div>
+        <div class="stat-card"><span>Other Experiments</span><strong>{{other_count}}</strong><small>Data and text
+            analysis</small></div>
+      </div>
+    </section>
+    <div class="intro">
+      <h2>All Experiments (01–11)</h2>
+      <p>Select any experiment card to open its own input form and run the model.</p>
+    </div>
+    <div class="cards">{% for e in experiments %}<article class="card">
+        <div class="top">
+          <div class="num">{{e.no}}</div><span class="tag">{{e.category}}</span>
+        </div>
+        <h3>{{e.name}}</h3>
+        <p class="desc">{{e.desc}}</p><a class="open" href="{{url_for('experiment',key=e.id)}}">Open Experiment →</a>
+      </article>{% endfor %}</div>
+  </main>
+  <footer>Integrated ML Dashboard · Flask · scikit-learn</footer>
+</body>
+
+</html>
